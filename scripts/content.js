@@ -4,7 +4,7 @@
 // 2. page doesn't scroll when navigating away from a tweet whose replies
 //      have been restricted by the author
 
-const ENABLE_DEBUG_LOGGING = 1;
+const ENABLE_DEBUG_LOGGING = 0;
 
 const scrollPositionsMap = {};
 window.navigation.addEventListener("navigate", handleNavigation);
