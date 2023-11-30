@@ -4,10 +4,10 @@
   "description": "When you're reading a tweet's reply's replies, then hit the back button to go back to the original thread, Twitter loses your scroll position. This extension fixes that.",
   "version": "1.0",
   "icons": {
-    "16": "images/twitter16.png",
-    "32": "images/twitter32.png",
-    "48": "images/twitter48.png",
-    "128": "images/twitter128.png"
+    "16": "images/logo-16.png",
+    "32": "images/logo-32.png",
+    "48": "images/logo-48.png",
+    "128": "images/logo-128.png"
   },
   "content_scripts": [
     {
