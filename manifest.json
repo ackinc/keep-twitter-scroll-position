@@ -1,0 +1,6 @@
+{
+  "manifest_version": 3,
+  "name": "Keep Twitter scroll position",
+  "description": "When you're reading a tweet's reply's replies, then hit the back button to go back to the original thread, Twitter loses your scroll position. This extension fixes that.",
+  "version": "1.0"
+}
