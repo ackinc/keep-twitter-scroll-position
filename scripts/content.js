@@ -29,6 +29,9 @@ async function handleNavigation(event) {
   const dataOfTweetToHighlight = getTweetDetails(origReplyTarget);
   const tweetToHighlight = findTweetInVisibleArea(dataOfTweetToHighlight);
   if (tweetToHighlight) await highlightTweet(tweetToHighlight);
+  else {
+    if (ENABLE_DEBUG_LOGGING) console.log(`Failed to find tweet to highlight`);
+  }
 }
 
 // twitter-specific helpers
@@ -40,7 +43,7 @@ async function highlightTweet(tweetNode) {
 
   tweetNode.style.backgroundColor = "bisque";
 
-  await delayMs(500);
+  await delayMs(2000);
   tweetNode.style.backgroundColor = origBgColor;
 }
 
@@ -101,10 +104,8 @@ function getFirstVisibleTweet() {
     pointToCheck.x,
     pointToCheck.y
   );
-  while (!nodeIsCellInnerDiv(elemAtTopOfPage)) {
-    elemAtTopOfPage = elemAtTopOfPage.parentNode;
-    if (elemAtTopOfPage === null) return null;
-  }
+  elemAtTopOfPage = getNearestCellInnerDivAncestor(elemAtTopOfPage);
+  if (elemAtTopOfPage === null) return null;
 
   const foundTweet = elemAtTopOfPage.querySelector("article");
 
@@ -114,11 +115,8 @@ function getFirstVisibleTweet() {
 }
 
 function getNextTweetOnPage(tweetNode) {
-  let cellInnerDiv = tweetNode;
-  while (!nodeIsCellInnerDiv(cellInnerDiv)) {
-    cellInnerDiv = cellInnerDiv.parentNode;
-    if (cellInnerDiv === null) return null;
-  }
+  let cellInnerDiv = getNearestCellInnerDivAncestor(tweetNode);
+  if (cellInnerDiv === null) return null;
 
   let nextTweet;
   while (!nextTweet) {
@@ -129,6 +127,14 @@ function getNextTweetOnPage(tweetNode) {
   }
 
   return nextTweet;
+}
+
+function getNearestCellInnerDivAncestor(node) {
+  while (!nodeIsCellInnerDiv(node)) {
+    node = node.parentNode;
+    if (node === null) return null;
+  }
+  return node;
 }
 
 function nodeIsCellInnerDiv(node) {
