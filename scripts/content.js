@@ -16,6 +16,8 @@ window.navigation.addEventListener("navigate", async (evt) => {
   }
 });
 
+// helpers
+
 async function waitUntilPageChange() {
   const origReplyTarget = getReplyTargetTweet();
   let curReplyTarget;
