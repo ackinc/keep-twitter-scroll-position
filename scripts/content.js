@@ -45,3 +45,43 @@ function getTweetText(tweetNode) {
 function getTweetAriaLabel(tweetNode) {
   return tweetNode.attributes["aria-labelledby"].value;
 }
+
+function getTweetTime(tweetNode) {
+  return tweetNode.querySelector("time").attributes["datetime"].value;
+}
+
+function getTweetAuthor(tweetNode) {
+  const avatarUrl = tweetNode
+    .querySelector('div[data-testid="Tweet-User-Avatar"]')
+    .querySelector("img").src;
+
+  const userDetailsContainer = tweetNode.querySelector(
+    'div[data-testid="User-Name"]'
+  );
+  const name = userDetailsContainer.firstChild.querySelector("a").innerText;
+  const username =
+    userDetailsContainer.firstChild.nextElementSibling.querySelector(
+      "a"
+    ).innerText;
+
+  return {
+    name,
+    username,
+    avatarUrl,
+  };
+}
+
+function getTweetDetails(tweetNode) {
+  return {
+    author: getTweetAuthor(tweetNode),
+    ariaLabel: getTweetAriaLabel(tweetNode),
+    time: getTweetTime(tweetNode),
+    text: getTweetText(tweetNode),
+  };
+}
+
+function tweetsAreSame(tweetNodeA, tweetNodeB) {
+  const a = getTweetDetails(tweetNodeA);
+  const b = getTweetDetails(tweetNodeB);
+  return a.author.username === b.author.username && a.time === b.time;
+}
