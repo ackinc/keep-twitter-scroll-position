@@ -6,36 +6,27 @@ window.navigation.addEventListener("navigate", async (evt) => {
   scrollPositionsMap[source] = window.scrollY;
 
   const destination = evt.destination.url;
-  if (destination in scrollPositionsMap) {
-    await waitUntilPageChange();
-    scrollTo({
-      left: 0,
-      top: scrollPositionsMap[destination],
-      // behavior: "smooth",
-    });
-  }
+  if (!(destination in scrollPositionsMap)) return;
+
+  // now we know the user has navigated from one tweet page to another
+
+  const origReplyTarget = getReplyTargetTweet();
+  await waitUntilPageChange(origReplyTarget);
+  scrollTo({ left: 0, top: scrollPositionsMap[destination] });
+
+  // TODO: highlight tweet user was just seeing
 });
 
 // helpers
 
-async function waitUntilPageChange() {
-  const origReplyTarget = getReplyTargetTweet();
-  let curReplyTarget;
-
+async function waitUntilPageChange(origReplyTarget) {
   do {
     await delayMs(50);
-    curReplyTarget = getReplyTargetTweet();
-  } while (curReplyTarget === origReplyTarget);
+  } while (getReplyTargetTweet() === origReplyTarget);
 }
 
 function delayMs(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function getFirstTweet() {
-  return document
-    .querySelector('div[aria-label="Timeline: Conversation"]')
-    .querySelector("article");
 }
 
 function getReplyTargetTweet() {
