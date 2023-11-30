@@ -1,6 +1,8 @@
 // PROBLEMS:
 // 1. scroll position should only be restored on backwards navigation,
 //      not forwards navigation
+// 2. page doesn't scroll when navigating away from a tweet whose replies
+//      have been restricted by the author
 
 const ENABLE_DEBUG_LOGGING = 1;
 
@@ -34,11 +36,12 @@ async function handleNavigation(event) {
 async function highlightTweet(tweetNode) {
   tweetNode.style.transition = "background-color 250ms linear";
 
-  await delayMs(250);
-  tweetNode.style.backgroundColor = "lightblue";
+  const origBgColor = tweetNode.style.backgroundColor;
 
-  await delayMs(250);
-  tweetNode.style.backgroundColor = "transparent";
+  tweetNode.style.backgroundColor = "bisque";
+
+  await delayMs(500);
+  tweetNode.style.backgroundColor = origBgColor;
 }
 
 async function waitUntilPageChange(origReplyTarget) {
