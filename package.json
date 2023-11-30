@@ -5,5 +5,8 @@
   "license": "MIT",
   "dependencies": {
     "chrome-types": "^0.1.246"
+  },
+  "devDependencies": {
+    "eslint": "^8.54.0"
   }
 }
