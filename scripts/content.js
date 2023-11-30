@@ -49,26 +49,11 @@ async function waitUntilPageChange(origReplyTarget) {
 }
 
 async function waitUntilThereAreVisibleTweets() {
-  return delayMs(1000);
-  // return waitFor(checkThereAreVisibleTweets, "checkThereAreVisibleTweets");
+  return waitFor(checkThereAreVisibleTweets, "checkThereAreVisibleTweets");
 }
 
 function checkThereAreVisibleTweets() {
-  const pointToCheck = {
-    x: window.innerWidth / 2,
-    // looking a bit below the top of the screen to clear the "go back"
-    //   element that twitter has fixed to the top
-    y: 60,
-  };
-
-  if (
-    document.elementFromPoint(pointToCheck.x, pointToCheck.y).parentNode
-      .attributes["aria-label"] === "Timeline: Conversation"
-  ) {
-    return false;
-  }
-
-  return true;
+  return !!getFirstVisibleTweet();
 }
 
 function getReplyTargetTweet() {
@@ -129,6 +114,7 @@ function getNextTweetOnPage(tweetNode) {
   let cellInnerDiv = tweetNode;
   while (!nodeIsCellInnerDiv(cellInnerDiv)) {
     cellInnerDiv = cellInnerDiv.parentNode;
+    if (cellInnerDiv === null) return null;
   }
 
   let nextTweet;
