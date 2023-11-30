@@ -2,5 +2,17 @@
   "manifest_version": 3,
   "name": "Keep Twitter scroll position",
   "description": "When you're reading a tweet's reply's replies, then hit the back button to go back to the original thread, Twitter loses your scroll position. This extension fixes that.",
-  "version": "1.0"
+  "version": "1.0",
+  "icons": {
+    "16": "images/twitter16.png",
+    "32": "images/twitter32.png",
+    "48": "images/twitter48.png",
+    "128": "images/twitter128.png"
+  },
+  "content_scripts": [
+    {
+      "js": ["scripts/content.js"],
+      "matches": ["https://twitter.com/*"]
+    }
+  ]
 }
