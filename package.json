@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "dependencies": {
-    "chrome-types": "^0.1.246"
-  },
+  "dependencies": {},
   "devDependencies": {
     "eslint": "^8.54.0"
   }
