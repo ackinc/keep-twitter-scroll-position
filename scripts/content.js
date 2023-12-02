@@ -65,7 +65,9 @@ async function waitUntilPageChange(origReplyTarget) {
 }
 
 async function waitUntilThereAreVisibleTweets() {
-  return waitFor(checkThereAreVisibleTweets, "checkThereAreVisibleTweets");
+  return waitFor(checkThereAreVisibleTweets, "checkThereAreVisibleTweets", {
+    delayBetweenTriesMs: 100,
+  });
 }
 
 function checkThereAreVisibleTweets() {
@@ -195,9 +197,9 @@ function delayMs(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function waitFor(predFn, name) {
-  const MAX_TRIES = 20;
-  const DELAY_BETWEEN_TRIES_MS = 50;
+async function waitFor(predFn, name, opts = {}) {
+  const MAX_TRIES = opts.maxTries ?? 20;
+  const DELAY_BETWEEN_TRIES_MS = opts.delayBetweenTriesMs ?? 50;
 
   const loggingPrefix = `waitFor${name ? `: ${name}` : ""}`;
   let nTries = 0;
