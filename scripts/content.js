@@ -22,14 +22,24 @@ async function handleNavigation(event) {
 
   const origReplyTarget = getReplyTargetTweet();
   await waitUntilPageChange(origReplyTarget);
+  if (ENABLE_DEBUG_LOGGING) {
+    console.log(`Waited until reply-target tweet changed`);
+  }
   scrollTo({ left: 0, top: scrollPositionsMap[destination] });
 
   // highlight tweet user was just seeing
   await waitUntilThereAreVisibleTweets();
+  if (ENABLE_DEBUG_LOGGING) {
+    console.log(`Waited until there are visible tweets`);
+  }
   const dataOfTweetToHighlight = getTweetDetails(origReplyTarget);
   const tweetToHighlight = findTweetInVisibleArea(dataOfTweetToHighlight);
-  if (tweetToHighlight) await highlightTweet(tweetToHighlight);
-  else {
+  if (tweetToHighlight) {
+    if (ENABLE_DEBUG_LOGGING) {
+      console.log(`Found tweet to highlight`);
+    }
+    await highlightTweet(tweetToHighlight);
+  } else {
     if (ENABLE_DEBUG_LOGGING) console.log(`Failed to find tweet to highlight`);
   }
 }
