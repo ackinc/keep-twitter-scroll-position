@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Keep Twitter scroll position",
   "description": "Twitter annoyingly keeps losing your scroll position when browsing reply threads. This extension fixes that.",
-  "version": "1.1",
+  "version": "1.2",
   "icons": {
     "16": "images/logo-16.png",
     "32": "images/logo-32.png",

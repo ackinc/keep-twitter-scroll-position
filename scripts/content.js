@@ -46,12 +46,20 @@ async function handleNavigation(event) {
 
 // twitter-specific helpers
 
+function getTweetHighlightColor() {
+  if (document.body.style.backgroundColor === "rgb(255, 255, 255)") {
+    return "bisque";
+  } else {
+    return "darkslategray";
+  }
+}
+
 async function highlightTweet(tweetNode) {
   tweetNode.style.transition = "background-color 250ms linear";
 
   const origBgColor = tweetNode.style.backgroundColor;
 
-  tweetNode.style.backgroundColor = "bisque";
+  tweetNode.style.backgroundColor = getTweetHighlightColor();
 
   await delayMs(2000);
   tweetNode.style.backgroundColor = origBgColor;
